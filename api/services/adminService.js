@@ -1,6 +1,6 @@
 import database from '../database/connect'
 import { emailValidation } from './validationService'
-import { verifyHash, createHash } from './cryptografyService';
+import {  createHash } from './cryptografyService';
 
 const createAdmin = async admin => {
     const { name, password, email } = admin
@@ -11,7 +11,6 @@ const createAdmin = async admin => {
         throw 'Verifique o email e tente novamente'
     }
     const passwordHashed = createHash(password)
-    console.log(passwordHashed)
     await database('Admin').insert({ name, password: passwordHashed, email })
 
 }

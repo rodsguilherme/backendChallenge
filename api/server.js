@@ -17,6 +17,7 @@ api.use(koaBody(({ multipart: true })))
 
 api.use(mount(require('./controllers/candidateController')))
 api.use(mount(require('./controllers/adminController')))
+api.use(mount(require('./controllers/loginController')))
 
 
 
