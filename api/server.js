@@ -16,6 +16,7 @@ api.use(cors({
 api.use(koaBody(({ multipart: true })))
 
 api.use(mount(require('./controllers/candidateController')))
+api.use(mount(require('./controllers/adminController')))
 
 
 

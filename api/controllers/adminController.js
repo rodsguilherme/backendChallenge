@@ -1,30 +1,29 @@
 import koa from 'koa';
 import Router from 'koa-router';
 const router = new Router({ prefix: '/v1' });
+import { createAdmin } from '../services/adminService'
+
 const api = new koa()
 
-import { createCandidate } from '../services/candidateService'
-
-router.post('/candidate', async ctx => {
+router.post('/admin', async ctx => {
     const { body } = ctx.request
-    const candidate = {
+    const admin = {
         name: body.name,
-        email: body.email,
-        telephone: body.telephone,
-        cpf: body.cpf
+        password: body.password,
+        email: body.email
     }
 
     try {
-        await createCandidate(candidate)
+        await createAdmin(admin)
         ctx.body = {
-            message: "Candidato criado com sucesso!"
+            message: 'Administrador criado com sucesso!'
         }
         ctx.status = 201
     } catch (error) {
-        console.log(error)
         ctx.body = error
         ctx.status = 400
     }
+
 })
 
 
