@@ -5,7 +5,7 @@ import { createAdmin } from '../services/adminService'
 
 const api = new koa()
 
-router.post('/admin', async ctx => {
+router.post('/admins', async ctx => {
     const { body } = ctx.request
     const admin = {
         name: body.name,

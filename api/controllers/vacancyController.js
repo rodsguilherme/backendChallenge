@@ -3,21 +3,19 @@ import Router from 'koa-router';
 const router = new Router({ prefix: '/v1' });
 const api = new koa()
 
-import { createCandidate } from '../services/candidateService'
+import { createVacancy } from '../services/vacancyService'
 
-router.post('/candidates', async ctx => {
+router.post('/vacancys', async ctx => {
     const { body } = ctx.request
-    const candidate = {
+    const vacancy = {
         name: body.name,
-        email: body.email,
-        telephone: body.telephone,
-        cpf: body.cpf
+        skills: body.skills,
+        description: body.description
     }
-
     try {
-        await createCandidate(candidate)
+        await createVacancy(vacancy)
         ctx.body = {
-            message: "Candidato criado com sucesso!"
+            message: 'Vaga criada com sucesso!'
         }
         ctx.status = 201
     } catch (error) {
@@ -26,6 +24,9 @@ router.post('/candidates', async ctx => {
         ctx.status = 400
     }
 })
+
+
+
 
 
 
