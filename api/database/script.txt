@@ -1,0 +1,41 @@
+create table Admin (
+	idAdmin INTEGER PRIMARY KEY AUTOINCREMENT,
+	name text NOT NULL,
+	password text NOT NULL,
+	email text NOT NULL UNIQUE
+);
+
+create TABLE Candidate (
+	idCandidate INTEGER PRIMARY KEY  AUTOINCREMENT,
+	name text NOT NULL,
+	email text NOT NULL unique,
+	cpf text NOT NULL unique,
+	telephone INTEGER NOT NULL UNIQUE
+);
+
+CREATE table Vacancy (
+	idVacancy INTEGER PRIMARY KEY  AUTOINCREMENT,
+	name text NOT NULL,
+	skills text NOT NULL,
+	description text NOT NULL,
+	data INTEGER NOT NULL
+);
+
+CREATE TABLE Commentary (
+	idCommentary integer PRIMARY KEY  AUTOINCREMENT, 
+	idAdmin INTEGER,
+	commentary text NOT NULL,
+	FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin)
+);
+
+CREATE table Subcription (
+	idCommentary INTEGER,
+	idAdmin INTEGER,
+	idVacancy INTEGER,
+	idCandidate INTEGER,
+	FOREIGN KEY(idCommentary) REFERENCES Commentary(idCommetary),
+	FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin),
+	FOREIGN KEY(idVacancyy) REFERENCES Vacancy(idVacancy),
+		FOREIGN KEY(idCandidate) REFERENCES Candidate(idCandidate)
+	
+)

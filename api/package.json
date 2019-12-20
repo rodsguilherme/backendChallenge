@@ -1,0 +1,36 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "teste back-end para empresa Nave.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js --exec babel-node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeRods/backendChallenge.git"
+  },
+  "author": "Guilherme Rodrigues",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GuilhermeRods/backendChallenge/issues"
+  },
+  "homepage": "https://github.com/GuilhermeRods/backendChallenge#readme",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "knex": "^0.20.4",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-mount": "^4.0.0",
+    "koa-respond": "^2.1.0",
+    "koa-router": "^7.4.0",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1"
+  }
+}
