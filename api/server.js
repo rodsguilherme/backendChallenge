@@ -7,6 +7,7 @@ const respond = require('koa-respond')
 
 const api = new koa()
 
+
 api.use(cors({
     origin: '*',
     allowMethods: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH'],
@@ -14,8 +15,7 @@ api.use(cors({
 }));
 api.use(koaBody(({ multipart: true })))
 
-
-
+api.use(mount(require('./controllers/candidateController')))
 
 
 
