@@ -19,6 +19,7 @@ api.use(mount(require('./controllers/candidateController')))
 api.use(mount(require('./controllers/adminController')))
 api.use(mount(require('./controllers/vacancyController')))
 api.use(mount(require('./controllers/loginController')))
+api.use(mount(require('./controllers/subscriptionController')))
 
 
 
