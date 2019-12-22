@@ -1,31 +1,48 @@
-import koa from 'koa';
-import Router from 'koa-router';
-const router = new Router({ prefix: '/v1' });
-
-const api = new koa()
 
 import { createSubscription } from '../services/subscriptionService'
-router.post('/subscriptions', async ctx => {
-    const { body } = ctx.request
-    const subscription = {
-        idVacancy: body.idVacancy,
-        idCandidate: body.idCandidate,
-        idAdmin: body.idAdmin
-    }
-    console.log(subscription)
-    try {
-        await createSubscription(subscription)
-        ctx.body = {
-            message: 'Inscrição feita com sucesso!'
+import { createComment } from '../services/commentaryService'
+const SubscriptionController = {
+    create: async ctx => {
+        const { body } = ctx.request
+        const subscription = {
+            idVacancy: body.idVacancy,
+            idCandidate: body.idCandidate,
+            idAdmin: body.idAdmin
         }
-        ctx.status = 201
-    } catch (error) {
-        console.log(error)
-        ctx.body = error
-        ctx.status = 400
+
+        try {
+            await createSubscription(subscription)
+            ctx.body = { message: 'Inscrição feita com sucesso!' }
+            ctx.status = 201
+        } catch (error) {
+            console.log(error)
+            ctx.body = { message: error }
+            ctx.status = 400
+        }
+    },
+    createCommentary: async ctx => {
+        const { body } = ctx.request
+        const { idSubs } = ctx.params
+        const Commentary = {
+            idAdmin: body.idAdmin,
+            idSubs,
+            commentary: body.commentary
+        }
+        try {
+            await createComment(Commentary)
+            ctx.body = { message: 'Comentário adicionado' }
+            ctx.status = 201
+        } catch (error) {
+            if (error.errno == 19) {
+                ctx.body = { message: 'Verifique os campos e tente novamente' }
+                ctx.status = 400
+            }
+            ctx.body = { message: error }
+            ctx.status = 400
+
+        }
     }
-})
+}
 
 
-api.use(router.routes())
-module.exports = api
+export default SubscriptionController

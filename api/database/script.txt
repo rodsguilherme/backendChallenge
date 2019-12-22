@@ -18,24 +18,25 @@ CREATE table Vacancy (
 	name text NOT NULL,
 	skills text NOT NULL,
 	description text NOT NULL,
-	data INTEGER NOT NULL
+	date INTEGER NOT NULL
 );
 
 CREATE TABLE Commentary (
-	idCommentary integer PRIMARY KEY  AUTOINCREMENT, 
 	idAdmin INTEGER,
+	idSubs integer,
 	commentary text NOT NULL,
-	FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin)
+	date integer,
+	FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin),
+	FOREIGN KEY(idSubs) REFERENCES Subcription(idSubs)
 );
 
-CREATE table Subcription (
-	idCommentary INTEGER,
+CREATE table Subscription (
+	idSubs INTEGER PRIMARY KEY  AUTOINCREMENT,
 	idAdmin INTEGER,
 	idVacancy INTEGER,
-	idCandidate INTEGER,
-	FOREIGN KEY(idCommentary) REFERENCES Commentary(idCommetary),
+	idCandidate INTEGER,	
+	date integer,
 	FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin),
-	FOREIGN KEY(idVacancyy) REFERENCES Vacancy(idVacancy),
-		FOREIGN KEY(idCandidate) REFERENCES Candidate(idCandidate)
-	
+	FOREIGN KEY(idVacancy) REFERENCES Vacancy(idVacancy),
+	FOREIGN KEY(idCandidate) REFERENCES Candidate(idCandidate)
 )

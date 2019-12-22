@@ -4,6 +4,6 @@ import VacancyController from '../controllers/vacancyController'
 
 const router = new Router()
 
-router.post('/users/vacancys', VacancyController.create)
+router.post('/vacancys', VacancyController.create)
 
 export default router.routes()

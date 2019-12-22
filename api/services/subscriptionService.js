@@ -2,24 +2,18 @@ import database from '../database/connect'
 
 const createSubscription = async subscription => {
     const { idAdmin, idCandidate, idVacancy } = subscription
-    const subscriptionChecked = await subscriptionIsValid(subscription)
 
-    if (!subscriptionChecked) {
+    if (!await subscriptionIsValid(subscription)) {
         throw "Verifique os campos e tente novamente."
     }
-    await database('Subscription').insert({ idAdmin, idCandidate, idVacancy })
+    await database('Subscription').insert({ idAdmin, idCandidate, idVacancy, date: database.raw('current_date') })
 }
 
 const subscriptionIsValid = async subscription => {
     const { idAdmin, idCandidate, idVacancy } = subscription
-    const adminChecked = await getAdminById(idAdmin)
-    const candidateChecked = await getCandidateById(idCandidate)
-    const vacancyChecked = await getVacancyById(idVacancy)
-
-    if (!adminChecked || !candidateChecked || !vacancyChecked) {
-        return false
-    }
-    return true
+  
+    return await getAdminById(idAdmin) || await getCandidateById(idCandidate) || await getVacancyById(idVacancy)
+  
 }
 
 const getVacancyById = async idVacancy => {
