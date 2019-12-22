@@ -4,7 +4,7 @@ const Router = require('koa-router');
 const mount = require('koa-mount')
 const koaBody = require('koa-body');
 const respond = require('koa-respond')
-
+import routes from './routes'
 const api = new koa()
 
 
@@ -15,17 +15,18 @@ api.use(cors({
 }));
 api.use(koaBody(({ multipart: true })))
 
-api.use(mount(require('./controllers/candidateController')))
-api.use(mount(require('./controllers/adminController')))
-api.use(mount(require('./controllers/vacancyController')))
-api.use(mount(require('./controllers/loginController')))
-api.use(mount(require('./controllers/subscriptionController')))
+//api.use(mount(require('./controllers/candidateController')))
+
+//api.use(mount(require('./controllers/vacancyController')))
+//api.use(mount(require('./controllers/loginController')))
+//api.use(mount(require('./controllers/subscriptionController')))
 
 
 
 const router = new Router();
 api.use(respond())
-api.use(router.routes())
+//api.use(router.routes())
+api.use(routes.routes())
 api.use(router.allowedMethods())
 
 
