@@ -1,10 +1,10 @@
 import Router from 'koa-router'
-import admin from './routes-admin'
+import users from './routes-user'
 
 const router = new Router()
 const api = new Router()
 
-api.use(admin)
+api.use(users)
 
 router.use('/v1', api.routes())
 

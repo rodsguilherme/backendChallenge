@@ -5,9 +5,9 @@ import {  createHash } from './cryptografyService';
 const createAdmin = async admin => {
     const { name, password, email } = admin
 
-    const foundAdmin = await emailExists(admin)
+   
 
-    if (foundAdmin) {
+    if (!emailIsValid(email)) {
         throw 'Verifique o email e tente novamente'
     }
     const passwordHashed = createHash(password)
@@ -15,21 +15,10 @@ const createAdmin = async admin => {
 
 }
 
-const emailIsValid = async email => {
+const emailIsValid = email => {
+    
     return emailValidation(email)
 }
 
-const emailExists = async email => {
-
-    if (emailIsValid) {
-        return false
-    }
-    const foundEmail = await database('Admin').select('email').where({ email });
-
-    if (foundEmail.length > 0) {
-        return true
-    }
-    return false
-}
 
 module.exports = { createAdmin }
