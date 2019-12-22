@@ -1,33 +1,34 @@
-import koa from 'koa';
-import Router from 'koa-router';
-const router = new Router({ prefix: '/v1' });
-const api = new koa()
 
 import { createCandidate } from '../services/candidateService'
 
-router.post('/candidates', async ctx => {
-    const { body } = ctx.request
-    const candidate = {
-        name: body.name,
-        email: body.email,
-        telephone: body.telephone,
-        cpf: body.cpf
-    }
 
-    try {
-        await createCandidate(candidate)
-        ctx.body = {
-            message: "Candidato criado com sucesso!"
+const CandidateController = {
+    create: async ctx => {
+        const { body } = ctx.request
+        const candidate = {
+            name: body.name,
+            email: body.email,
+            telephone: body.telephone,
+            cpf: body.cpf
         }
-        ctx.status = 201
-    } catch (error) {
-        console.log(error)
-        ctx.body = error
-        ctx.status = 400
+
+        try {
+            await createCandidate(candidate)
+            ctx.body = {
+                message: "Candidato criado com sucesso!"
+            }
+            ctx.status = 201
+        } catch (error) {
+            if (error.errno === 19) {
+                ctx.body = { message: 'Verifique os campos e tente novamente.' }
+                ctx.status = 400
+            }
+            else {
+                ctx.body = { message: error }
+                ctx.status = 400
+            }
+        }
     }
-})
+}
 
-
-
-api.use(router.routes())
-module.exports = api
+export default CandidateController
