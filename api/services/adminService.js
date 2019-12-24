@@ -13,4 +13,8 @@ const createAdmin = async admin => {
 
 }
 
-module.exports = { createAdmin }
+const getUserByEmail = async email => {
+    return await database('Admin').select('idAdmin').where({ email })
+}
+
+module.exports = { createAdmin, getUserByEmail }

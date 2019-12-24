@@ -45,6 +45,7 @@ const AdminController = {
             ctx.status = 400
         }
         else {
+            
             ctx.body = {
                 message: 'Usuário conectado.'
             }
