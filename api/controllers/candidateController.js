@@ -1,5 +1,5 @@
 
-import { createCandidate } from '../services/candidateService'
+import { createCandidate, getCandidateById } from '../services/candidateService'
 
 
 const CandidateController = {
@@ -27,6 +27,18 @@ const CandidateController = {
                 ctx.body = { message: error }
                 ctx.status = 400
             }
+        }
+    },
+    show: async ctx => {
+        const { idCandidate } = ctx.params
+
+        try {
+            const candidate = await getCandidateById(idCandidate)
+            ctx.body = { candidate }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { error }
+            ctx.status = 404
         }
     }
 }
