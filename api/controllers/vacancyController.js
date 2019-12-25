@@ -1,5 +1,5 @@
 
-import { createVacancy } from '../services/vacancyService'
+import { createVacancy, getVacancyById } from '../services/vacancyService'
 
 const VacancyController = {
     create: async ctx => {
@@ -18,6 +18,18 @@ const VacancyController = {
         } catch (error) {
             ctx.body = { message: error }
             ctx.status = 400
+        }
+    },
+    show: async ctx => {
+        const { idVacancy } = ctx.params
+
+        try {
+            const vacancy = await getVacancyById(idVacancy)
+            ctx.body = { vacancy }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { message: error }
+            ctx.status = 404
         }
     }
 }
