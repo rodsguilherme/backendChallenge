@@ -1,7 +1,7 @@
 
-import { createAdmin } from '../services/adminService'
+import { createAdmin, getUserByEmail } from '../services/adminService'
 import { login } from '../services/loginService'
-
+import { generateToken } from '../services/authService'
 
 const AdminController = {
     create: async ctx => {
@@ -36,7 +36,6 @@ const AdminController = {
             email: body.email,
             password: body.password
         }
-
         const connected = await login(admin)
         if (!connected) {
             ctx.body = {
@@ -45,10 +44,10 @@ const AdminController = {
             ctx.status = 400
         }
         else {
-            
-            ctx.body = {
-                message: 'Usuário conectado.'
-            }
+            const credencials = await getUserByEmail(admin.email)
+            const token = generateToken(credencials[0].idAdmin)
+
+            ctx.body = { message: 'Usuário conectado.', token }
             ctx.status = 200
         }
     }
