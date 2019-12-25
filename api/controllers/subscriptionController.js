@@ -7,15 +7,13 @@ const SubscriptionController = {
         const subscription = {
             idVacancy: body.idVacancy,
             idCandidate: body.idCandidate,
-            idAdmin: body.idAdmin
+            idAdmin: ctx.state.user.id
         }
-
         try {
             await createSubscription(subscription)
             ctx.body = { message: 'Inscrição feita com sucesso!' }
             ctx.status = 201
         } catch (error) {
-            console.log(error)
             ctx.body = { message: error }
             ctx.status = 400
         }
@@ -24,7 +22,7 @@ const SubscriptionController = {
         const { body } = ctx.request
         const { idSubs } = ctx.params
         const Commentary = {
-            idAdmin: body.idAdmin,
+            idAdmin: ctx.state.user.id,
             idSubs,
             commentary: body.commentary
         }
