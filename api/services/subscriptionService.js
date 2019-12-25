@@ -11,9 +11,9 @@ const createSubscription = async subscription => {
 
 const subscriptionIsValid = async subscription => {
     const { idAdmin, idCandidate, idVacancy } = subscription
-  
+
     return await getAdminById(idAdmin) || await getCandidateById(idCandidate) || await getVacancyById(idVacancy)
-  
+
 }
 
 const getVacancyById = async idVacancy => {
@@ -26,7 +26,6 @@ const getVacancyById = async idVacancy => {
 
 const getCandidateById = async idCandidate => {
     const id = await database('Candidate').select('idCandidate').where({ idCandidate })
-
     if (id.length === 0) {
         return false
     }
@@ -36,13 +35,20 @@ const getCandidateById = async idCandidate => {
 
 const getAdminById = async idAdmin => {
     const id = await database('Admin').select('idAdmin').where({ idAdmin })
-
     if (id.length === 0) {
         return false
     }
     return true
 }
 
+const getSubscriptionById = async idSubs => {
+    const subs = await database.from('Subscription')
+    .innerJoin('Commentary', 'Commentary.idSubs', 'Subscription.idSubs').where('Subscription.idSubs', idSubs)
+    if (subs.length === 0) {
+        throw 'Não há comentario para essa vaga.'
+    }
 
+    return subs
+}
 
-module.exports = { getVacancyById, getCandidateById, createSubscription }
+module.exports = { getVacancyById, getCandidateById, createSubscription, getSubscriptionById }
