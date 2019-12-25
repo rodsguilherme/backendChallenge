@@ -47,7 +47,7 @@ const CandidateController = {
             ctx.body = { candidates }
             ctx.status = 200
         } catch (error) {
-            ctx.body = { message: 'Não foi possivel retornar os candidatos.' }
+            ctx.body = { message: error }
             ctx.status = 404
         }
     }

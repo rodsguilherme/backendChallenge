@@ -13,8 +13,22 @@ const createAdmin = async admin => {
 
 }
 
-const getUserByEmail = async email => {
-    return await database('Admin').select('idAdmin').where({ email })
+const getUserByEmail = async email => await database('Admin').select('idAdmin').where({ email })
+
+
+const getUserById = async idAdmin => {
+    const id = await database('Admin').select("*").where({ idAdmin })
+    if (id.length == 0) {
+        throw "Administrador não existe."
+    }
+    return id
 }
 
-module.exports = { createAdmin, getUserByEmail }
+const getAllUsers = async () => {
+    const users = await database('Admin').select('*')
+    if (users.length === 0) {
+        throw "Não há adminstradores cadastrados."
+    }
+    return users
+}
+module.exports = { createAdmin, getUserByEmail, getUserById, getAllUsers }

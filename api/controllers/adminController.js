@@ -1,5 +1,5 @@
 
-import { createAdmin, getUserByEmail } from '../services/adminService'
+import { createAdmin, getUserByEmail, getUserById, getAllUsers } from '../services/adminService'
 import { login } from '../services/loginService'
 import { generateToken } from '../services/authService'
 
@@ -49,6 +49,28 @@ const AdminController = {
 
             ctx.body = { message: 'Usuário conectado.', token }
             ctx.status = 200
+        }
+    },
+    show: async ctx => {
+        const { idAdmin } = ctx.params
+
+        try {
+            const admin = await getUserById(idAdmin)
+            ctx.body = { admin }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { message: error }
+            ctx.status = 404
+        }
+    },
+    showAll: async ctx => {
+        try {
+            const admins = await getAllUsers()
+            ctx.body = { admins }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { message: error }
+            ctx.status = 404
         }
     }
 

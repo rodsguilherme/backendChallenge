@@ -29,7 +29,13 @@ const getCandidateById = async idCandidate => {
     return id
 }
 
-const getAllCandidates = async () => await database("Candidate").select('*')
+const getAllCandidates = async () => {
+    const candidate = await database("Candidate").select('*')
+    if (candidate.length === 0) {
+        throw "Não há candidatos cadastrados."
+    }
+    return candidate
+}
 
 
 module.exports = { createCandidate, getCandidateById, getAllCandidates }
