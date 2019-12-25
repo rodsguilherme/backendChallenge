@@ -6,6 +6,7 @@ const router = new Router()
 
 router.post('/vacancys', VacancyController.create)
 router.get('/vacancys/:idVacancy', VacancyController.show)
+router.get('/vacancys/', VacancyController.showAll)
 
 
 export default router.routes()

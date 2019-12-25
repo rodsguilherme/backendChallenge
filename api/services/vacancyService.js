@@ -18,5 +18,12 @@ const getVacancyById = async idVacancy => {
     return vacancy
 }
 
+const getAllVacancys = async () => {
+    const id = await database('Vacancy').select('*')
+    if (id.length === 0) {
+        throw "Não há vaga cadastrada"
+    }
+    return id
+}
 
-module.exports = { createVacancy, getVacancyById }
+module.exports = { createVacancy, getVacancyById, getAllVacancys }
