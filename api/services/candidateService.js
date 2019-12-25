@@ -29,4 +29,7 @@ const getCandidateById = async idCandidate => {
     return id
 }
 
-module.exports = { createCandidate, getCandidateById }
+const getAllCandidates = async () => await database("Candidate").select('*')
+
+
+module.exports = { createCandidate, getCandidateById, getAllCandidates }

@@ -1,5 +1,5 @@
 
-import { createCandidate, getCandidateById } from '../services/candidateService'
+import { createCandidate, getCandidateById, getAllCandidates } from '../services/candidateService'
 
 
 const CandidateController = {
@@ -38,6 +38,16 @@ const CandidateController = {
             ctx.status = 200
         } catch (error) {
             ctx.body = { error }
+            ctx.status = 404
+        }
+    },
+    showAll: async ctx => {
+        try {
+            const candidates = await getAllCandidates()
+            ctx.body = { candidates }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { message: 'Não foi possivel retornar os candidatos.' }
             ctx.status = 404
         }
     }
