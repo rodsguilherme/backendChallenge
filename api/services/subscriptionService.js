@@ -43,12 +43,20 @@ const getAdminById = async idAdmin => {
 
 const getSubscriptionById = async idSubs => {
     const subs = await database.from('Subscription')
-    .innerJoin('Commentary', 'Commentary.idSubs', 'Subscription.idSubs').where('Subscription.idSubs', idSubs)
+        .innerJoin('Commentary', 'Commentary.idSubs', 'Subscription.idSubs').where('Subscription.idSubs', idSubs)
     if (subs.length === 0) {
-        throw 'Não há comentario para essa vaga.'
+        throw 'Inscricao não existe.'
     }
-
     return subs
 }
 
-module.exports = { getVacancyById, getCandidateById, createSubscription, getSubscriptionById }
+const getSubscriptions = async () => {
+    const subs = await database.from('Subscription')
+        .innerJoin('Commentary', 'Commentary.idSubs', 'Subscription.idSubs')
+    if (subs.length === 0) {
+        throw 'Não há inscrições.'
+    }
+    return subs
+}
+
+module.exports = { getVacancyById, getCandidateById, createSubscription, getSubscriptionById, getSubscriptions }

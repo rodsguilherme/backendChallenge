@@ -1,5 +1,5 @@
 
-import { createSubscription, getSubscriptionById } from '../services/subscriptionService'
+import { createSubscription, getSubscriptionById, getSubscriptions } from '../services/subscriptionService'
 import { createComment } from '../services/commentaryService'
 const SubscriptionController = {
     create: async ctx => {
@@ -44,6 +44,16 @@ const SubscriptionController = {
         const { idSubs } = ctx.params
         try {
             const subs = await getSubscriptionById(idSubs)
+            ctx.body = { subs }
+            ctx.status = 200
+        } catch (error) {
+            ctx.body = { message: error }
+            ctx.status = 400
+        }
+    },
+    showAll: async ctx => {
+        try {
+            const subs = await getSubscriptions()
             ctx.body = { subs }
             ctx.status = 200
         } catch (error) {
