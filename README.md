@@ -5,7 +5,8 @@ Teste back-end developer para empresa Nave.
 ## Para esse projeto foi usado Koa.js, Knex + Sqlite3.
 
 ### Dependecias
-    "@koa/cors": "^3.0.0",
+    * _@koa/cors": "^3.0.0_
+    
     "bcryptjs": "^2.4.3",
     "cpf-check": "^3.0.0",
     "dotenv": "^8.2.0",
