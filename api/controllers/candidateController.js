@@ -21,7 +21,7 @@ const CandidateController = {
         } catch (error) {
             if (error.errno === 19) {
                 ctx.body = { message: 'Verifique os campos e tente novamente.' }
-                ctx.status = 400
+                ctx.status = 409
             }
             else {
                 ctx.body = { message: error }

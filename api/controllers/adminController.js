@@ -21,7 +21,7 @@ const AdminController = {
         } catch (error) {
             if (error.errno == 19) {
                 ctx.body = { message: 'Email ou senha incorretos.' }
-                ctx.status = 400
+                ctx.status = 409
             }
             else {
                 ctx.body = { message: error }
